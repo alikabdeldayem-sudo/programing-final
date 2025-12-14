@@ -36,3 +36,32 @@ def encode_message(image_path, message):
 
     print("Message encrypted and saved as:", output_path)
 
+def decode_message(image_path, correct_password):
+    #Extract a message from an image (3 attempts allowed for password)
+    attempts = 3
+
+    while attempts > 0:
+        entered = input("Enter password to decrypt: ")
+
+        if entered == correct_password:
+            with open(image_path, 'rb') as img:
+                image_bytes = bytearray(img.read())
+
+
+            binary_data = ""
+            for i in range(54, len(image_bytes)):
+                binary_data += str(image_bytes[i] & 1)
+
+
+            end_index = binary_data.find('00000000')
+            if end_index != -1:
+                message = from_binary(binary_data[:end_index])
+                print("Decrypted message:", message)
+            else:
+                print("No hidden message found.")
+            return
+        else:
+            attempts -= 1
+            print(f"Wrong password. Attempts left: {attempts}")
+
+    print("Access denied.")
