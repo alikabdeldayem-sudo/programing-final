@@ -65,3 +65,23 @@ def decode_message(image_path, correct_password):
             print(f"Wrong password. Attempts left: {attempts}")
 
     print("Access denied.")
+
+
+def is_strong_password(password):
+#this is to test for the passwords strength
+        if len(password) < 8:
+            return False
+
+        has_upper = has_lower = has_digit = has_symbol = False
+        symbols = "!@#$%^&*(),.?\":{}|<>"
+
+        for c in password:
+            if c.isupper():
+                has_upper = True
+            elif c.islower():
+                has_lower = True
+            elif c.isdigit():
+                has_digit = True
+            elif c in symbols:
+                has_symbol = True
+        return has_upper and has_lower and has_digit and has_symbol
