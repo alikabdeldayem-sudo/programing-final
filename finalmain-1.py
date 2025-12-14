@@ -85,3 +85,30 @@ def is_strong_password(password):
             elif c in symbols:
                 has_symbol = True
         return has_upper and has_lower and has_digit and has_symbol
+
+
+print("Image Steganography Program Encrypter and Decrypter")
+print("1. Encrypt (Hide a message)")
+print("2. Decrypt (Extract a message)")
+
+
+choice = input("Choose an option (1 or 2): ")
+
+if choice == "1":
+    image_path = input("Enter the path to the BMP image(ONLY BMP!): ")
+
+    password = input("Create a password: ")
+    while not is_strong_password(password):
+        print("Password must contain uppercase, lowercase, number, and symbol.")
+        password = input("Create a password: ")
+
+    message = input("Enter message to hide: ")
+    encode_message(image_path, message)
+
+elif choice == "2":
+    image_path = input("Enter path to encoded BMP image: ")
+    password = input("Enter password to decrypt: ")
+    decode_message(image_path, password)
+
+else:
+    print("Invalid option. Please restart the program.")
